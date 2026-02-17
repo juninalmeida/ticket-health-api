@@ -1,13 +1,12 @@
 {
   "name": "ticket-health-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Helpdesk ticketing API and UI for healthcare IT support management.",
+  "main": "./src/server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node --watch src/server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+  "author": "Horácio Júnior",
+  "license": "ISC"
 }
