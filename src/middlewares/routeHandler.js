@@ -6,7 +6,7 @@ export function routeHandler(req, res) {
   });
 
   if (route) {
-    return route.controller(req, res);
+    return route.controller({req, res});
   }
 
   return res.writeHead(404).end();
