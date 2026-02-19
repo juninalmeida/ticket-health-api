@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+
+    <title>SuporteTI Saúde</title>
+
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./js/main.js" />
+  </head>
+  <body>
+    <div class="app" id="app">
+      <header class="app__header">
+        <h1 class="app__title">SuporteTI Saúde</h1>
+
+        <div class="app__status" aria-live="polite">
+          <span
+            id="api-status-dot"
+            class="status-dot"
+            aria-hidden="true"
+          ></span>
+          <span id="api-status-text" class="status-text">Offline</span>
+        </div>
+      </header>
+
+      <main class="app__main">
+        <section class="overview" aria-label="VISÃO GERAL">
+          <div class="overview__card">
+            <h2 class="overview__label">VISÃO GERAL</h2>
+            <p class="overview__date" id="current-date">--</p>
+          </div>
+
+          <div class="overview__card">
+            <h2 class="overview__label">Em triagem</h2>
+            <p class="overview__stat" id="stat-open">00</p>
+          </div>
+
+          <div class="overview__card">
+            <h2 class="overview__label">Arquivados</h2>
+            <p class="overview__stat" id="stat-closed">00</p>
+          </div>
+        </section>
+
+        <section class="controls" aria-label="Controles">
+          <label class="controls__search">
+            <span class="sr-only">Buscar</span>
+            <input
+              id="search-input"
+              name="search"
+              type="search"
+              placeholder="Buscar"
+              autocomplete="off"
+            />
+          </label>
+
+          <div class="tabs" role="tablist" aria-label="filtro de status">
+            <button
+              id="tab-open"
+              type="button"
+              class="tabs__tab"
+              role="tab"
+              aria-selected="true"
+              data-action="set-filter"
+              data-filter="open"
+            >
+              Abertos
+            </button>
+
+            <button
+              id="tab-closed"
+              type="button"
+              class="tabs__tab"
+              role="tab"
+              aria-selected="false"
+              data-action="set-filter"
+              data-filter="closed"
+            >
+              Arquivados
+            </button>
+          </div>
+          <button
+            type="button"
+            class="btn btn--primary"
+            data-action="open-create"
+          >
+            Novo incidente
+          </button>
+        </section>
+
+        <section class="tickets" aria-label="Lista de chamados">
+          <div id="empty-state" class="empty" hidden>
+            <p>Nenhum chamado encontrado.</p>
+          </div>
+
+          <div id="ticket-list" class="tickets__list"></div>
+        </section>
+      </main>
+
+      <section class="modal" id="modal-form" hidden aria-hidden="true">
+        <div
+          class="modal__backdrop"
+          data-action="close-modal"
+          data-modal="modal-form"
+        ></div>
+
+        <div
+          class="modal__panel"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Novo incidente"
+        >
+          <header class="modal__header">
+            <h2 class="modal__title">Novo Incidente</h2>
+            <button
+              type="button"
+              class="modal__close"
+              data-action="close-modal"
+              data-modal="modal-form"
+            >
+              Fechar
+            </button>
+          </header>
+
+          <form id="ticket-form" class="form">
+            <input type="hidden" id="form-id" name="id" />
+
+            <label class="form__field">
+              <span>Equipamento/Local</span>
+              <input
+                id="form-equipment"
+                name="equipment"
+                type="text"
+                required
+              />
+            </label>
+
+            <label class="form__field" id="field-user-name">
+              <span>Solicitante</span>
+              <input id="form-user" name="userName" type="text" />
+            </label>
+
+            <label class="form__field">
+              <span>Descrição</span>
+              <textarea
+                id="form-desc"
+                name="description"
+                rows="4"
+                required
+              ></textarea>
+            </label>
+
+            <div class="form__actions">
+              <button
+                type="button"
+                class="btn"
+                data-action="close-modal"
+                data-modal="modal-form"
+              >
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn--primary">Salvar</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="modal" id="modal-close" hidden aria-hidden="true">
+        <div
+          class="modal__backdrop"
+          data-action="close-modal"
+          data-modal="modal-close"
+        ></div>
+
+        <div
+          class="modal__panel"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Encerrar chamado"
+        >
+          <header class="modal__header">
+            <h2 class="modal__title">Encerrar Chamado</h2>
+            <button
+              type="button"
+              class="modal__close"
+              data-action="close-modal"
+              data-modal="modal-close"
+            >
+              Fechar
+            </button>
+          </header>
+
+          <form id="close-form" class="form">
+            <input type="hidden" id="close-id" name="id" />
+
+            <label class="form__field">
+              <span>Solução</span>
+              <textarea
+                id="close-solution"
+                name="solution"
+                rows="4"
+                required
+              ></textarea>
+            </label>
+
+            <div class="form__actions">
+              <button
+                type="button"
+                class="btn"
+                data-action="close-modal"
+                data-modal="modal-close"
+              >
+                Voltar
+              </button>
+              <button type="submit" class="btn btn--success">Concluir</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <div
+        id="toast-container"
+        class="toasts"
+        aria-live="polite"
+        aria-relevant="additions"
+      ></div>
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>
