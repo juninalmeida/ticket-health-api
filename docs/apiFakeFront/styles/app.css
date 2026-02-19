@@ -1,0 +1,207 @@
+.app {
+  min-height: 100dvh;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: clamp(1rem, 4vw, var(--space-5)) clamp(0.875rem, 4vw, var(--space-4));
+}
+
+/* Header glass */
+.app__header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: rgba(8, 12, 20, 0.7);
+  backdrop-filter: blur(24px);
+  box-shadow: var(--shadow);
+}
+
+.app__title {
+  margin: 0;
+  font-size: clamp(1.125rem, 2.8vw, 1.75rem);
+  letter-spacing: -0.02em;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.app__main {
+  margin-top: var(--space-4);
+}
+
+/* Cards glass */
+.overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: var(--space-3);
+}
+
+.overview__card {
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow);
+}
+
+.overview__card:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-strong);
+}
+
+.overview__label {
+  margin: 0 0 var(--space-1);
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.overview__stat {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  letter-spacing: -0.02em;
+}
+
+.overview__date {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Controls */
+.controls {
+  margin-top: var(--space-4);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.controls > .btn {
+  justify-self: stretch;
+}
+
+.controls__search input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.controls__search input::placeholder {
+  color: var(--placeholder);
+}
+.controls__search input:focus-visible {
+  outline: none;
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.1);
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.tabs__tab {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 0.6rem 0.9rem;
+  min-height: 44px;
+  flex: 1 1 8.5rem;
+  text-align: center;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.tabs__tab[aria-selected="true"] {
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.1);
+}
+
+/* Buttons */
+.btn {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.btn--primary {
+  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.18);
+}
+
+.btn--success {
+  border-color: rgba(34, 197, 94, 0.35);
+  background: rgba(34, 197, 94, 0.18);
+}
+
+/* Modal (base) */
+.modal[hidden] {
+  display: none;
+}
+.modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--space-3);
+  z-index: 50;
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.modal__panel {
+  position: relative;
+  width: min(42rem, 100%);
+  max-height: 90dvh;
+  overflow: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: rgba(8, 12, 20, 0.85);
+  backdrop-filter: blur(24px);
+  box-shadow: var(--shadow);
+  padding: var(--space-4);
+}
+
+.form {
+  display: grid;
+  gap: var(--space-3);
+}
+.form__field span {
+  display: block;
+  margin-bottom: var(--space-1);
+  color: var(--muted);
+}
+.form__field input,
+.form__field textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+}
+.form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.form__actions .btn {
+  flex: 1 1 10rem;
+}

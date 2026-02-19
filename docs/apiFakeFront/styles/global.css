@@ -1,0 +1,81 @@
+/* Design tokens */
+:root {
+  --font-sans: system-ui, -apple-system, "Inter", sans-serif;
+  --font-mono: ui-monospace, "Space Grotesk", monospace;
+
+  --bg: #080c14;
+  --surface: rgba(255, 255, 255, 0.02);
+  --surface-hover: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.12);
+
+  --text: #e2e8f0;
+  --muted: rgba(148, 163, 184, 0.7);
+  --placeholder: rgba(148, 163, 184, 0.5);
+
+  --accent: #38bdf8;
+  --shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+
+  --radius-lg: 1.25rem;
+  --radius-md: 1rem;
+
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+
+  --container: 68rem;
+}
+
+/* 2) Reset mínimo */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* 3) A11y: foco visível */
+:focus-visible {
+  outline: 2px solid rgba(56, 189, 248, 0.55);
+  outline-offset: 2px;
+}
+
+/* 4) Utilitário */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
