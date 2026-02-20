@@ -1,6 +1,6 @@
 # Ticket Health API + Fake Front (Portfolio)
 
-**Subtítulo:** API de chamados feita em aula + frontend autoral com fake API persistente para demonstração prática.
+API de chamados feita em aula + frontend autoral com fake API persistente para demonstração prática.
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
