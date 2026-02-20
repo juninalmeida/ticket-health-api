@@ -3,22 +3,29 @@
   --font-mono: "Space Grotesk", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --bg: #080c14;
-  --surface: rgba(255, 255, 255, 0.03);
-  --surface-hover: rgba(255, 255, 255, 0.06);
+  --bg-soft: #0b1322;
+  --surface: rgba(255, 255, 255, 0.02);
+  --surface-hover: rgba(255, 255, 255, 0.04);
   --surface-strong: #0f1623;
 
   --text: #e2e8f0;
-  --muted: #8fa1bd;
-  --muted-2: #6f819d;
+  --muted: #94a3b8;
+  --muted-2: #64748b;
 
-  --border: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.18);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
 
-  --primary: #38bdf8;
-  --primary-strong: #0ea5e9;
-  --success: #10b981;
+  --primary: #10b981;
+  --primary-strong: #059669;
+  --accent: #38bdf8;
+  --accent-strong: #0ea5e9;
+  --success: #34d399;
   --warning: #f59e0b;
   --danger: #f43f5e;
+
+  --bg-rgb: 8 12 20;
+  --primary-rgb: 16 185 129;
+  --accent-rgb: 56 189 248;
 
   --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.45);
   --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.35);
@@ -99,7 +106,7 @@ svg {
 }
 
 :focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--primary) 75%, white);
+  outline: 2px solid color-mix(in srgb, var(--accent) 75%, white);
   outline-offset: 2px;
 }
 
