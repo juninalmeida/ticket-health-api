@@ -1,34 +1,44 @@
-/* Design tokens */
 :root {
-  --font-sans: system-ui, -apple-system, "Inter", sans-serif;
-  --font-mono: ui-monospace, "Space Grotesk", monospace;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Space Grotesk", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --bg: #080c14;
-  --surface: rgba(255, 255, 255, 0.02);
-  --surface-hover: rgba(255, 255, 255, 0.04);
-  --border: rgba(255, 255, 255, 0.06);
-  --border-strong: rgba(255, 255, 255, 0.12);
+  --surface: rgba(255, 255, 255, 0.03);
+  --surface-hover: rgba(255, 255, 255, 0.06);
+  --surface-strong: #0f1623;
 
   --text: #e2e8f0;
-  --muted: rgba(148, 163, 184, 0.7);
-  --placeholder: rgba(148, 163, 184, 0.5);
+  --muted: #8fa1bd;
+  --muted-2: #6f819d;
 
-  --accent: #38bdf8;
-  --shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.18);
 
-  --radius-lg: 1.25rem;
-  --radius-md: 1rem;
+  --primary: #38bdf8;
+  --primary-strong: #0ea5e9;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #f43f5e;
 
-  --space-1: 0.5rem;
-  --space-2: 0.75rem;
-  --space-3: 1rem;
-  --space-4: 1.5rem;
-  --space-5: 2rem;
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.35);
 
-  --container: 68rem;
+  --radius-xl: 1.25rem;
+  --radius-lg: 1rem;
+  --radius-md: 0.85rem;
+  --radius-sm: 0.65rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 2rem;
+
+  --container: 76rem;
 }
 
-/* 2) Reset mínimo */
 *,
 *::before,
 *::after {
@@ -37,23 +47,30 @@
 
 html {
   color-scheme: dark;
-  font-size: 100%;
-  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
+  min-height: 100dvh;
   font-family: var(--font-sans);
-  background: var(--bg);
   color: var(--text);
+  background: var(--bg);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
-img {
-  max-width: 100%;
-  display: block;
+body.has-modal-open {
+  overflow: hidden;
 }
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
 button,
 input,
 textarea {
@@ -61,13 +78,31 @@ textarea {
   color: inherit;
 }
 
-/* 3) A11y: foco visível */
+button {
+  border: 0;
+  background: transparent;
+}
+
+input,
+textarea {
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
 :focus-visible {
-  outline: 2px solid rgba(56, 189, 248, 0.55);
+  outline: 2px solid color-mix(in srgb, var(--primary) 75%, white);
   outline-offset: 2px;
 }
 
-/* 4) Utilitário */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -78,4 +113,15 @@ textarea {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

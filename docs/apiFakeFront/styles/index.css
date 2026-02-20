@@ -1,2 +1,3 @@
-@import url(/docs/apiFakeFront/styles/global.css);
-@import url(/docs/apiFakeFront/styles/app.css);
+@import "./global.css";
+@import "./app.css";
+@import "./components.css";
