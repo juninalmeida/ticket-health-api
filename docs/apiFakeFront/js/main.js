@@ -3,7 +3,9 @@ import { initialState } from "./app/initialState.js";
 import { createStore } from "./app/store.js";
 import { ticketsRepoLocal } from "./libs/ticketsRepoLocal.js";
 import { renderApp } from "./render/renderApp.js";
+import { createBackgroundGeometry } from "./ui/backgroundAnimated.js";
 import { createModals } from "./ui/modals.js";
+import { runStartupLoader } from "./ui/startupLoader.js";
 import { createToast } from "./ui/toast.js";
 import { formatDashboardDate } from "./utils/date.js";
 
@@ -164,9 +166,13 @@ closeForm?.addEventListener("submit", (event) => {
 });
 
 async function init() {
+  const loaderPromise = runStartupLoader(1500);
+  createBackgroundGeometry();
   setCurrentDate();
   renderApp(store.getState());
-  await actions.bootstrap();
+  const bootstrapPromise = actions.bootstrap();
+  await loaderPromise;
+  await bootstrapPromise;
 }
 
 init();
