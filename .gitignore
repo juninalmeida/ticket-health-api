@@ -1,0 +1,5 @@
+# macOS
+.DS_Store
+
+# Asset de rascunho (fora do escopo atual da UI)
+docs/apiFakeFront/assets/ambulancia.png
