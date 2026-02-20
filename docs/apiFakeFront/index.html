@@ -5,127 +5,173 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark" />
 
-    <title>SuporteTI Saúde</title>
+    <title>Ticket Health — Resolution Center</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
 
     <link rel="stylesheet" href="./styles/index.css" />
   </head>
   <body>
-    <div class="app" id="app">
-      <header class="app__header">
-        <h1 class="app__title">SuporteTI Saúde</h1>
+    <div class="bg-layer" aria-hidden="true"></div>
+    <div class="bg-vignette" aria-hidden="true"></div>
+    <div class="bg-orb bg-orb--one" aria-hidden="true"></div>
+    <div class="bg-orb bg-orb--two" aria-hidden="true"></div>
 
-        <div class="app__status" aria-live="polite">
-          <span
-            id="api-status-dot"
-            class="status-dot"
-            aria-hidden="true"
-          ></span>
-          <span id="api-status-text" class="status-text">Offline</span>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="topbar">
+          <div class="brand" aria-label="Ticket Health">
+            <span class="brand__icon" aria-hidden="true">✚</span>
+            <div>
+              <h1 class="brand__title">Ticket Health</h1>
+              <p class="brand__subtitle">Resolution Center</p>
+            </div>
+          </div>
+
+          <div class="topbar__meta">
+            <div id="api-status" class="api-status" data-mode="persistent" aria-live="polite">
+              <span id="api-status-dot" class="status-dot" aria-hidden="true"></span>
+              <span id="api-status-text">Inicializando...</span>
+            </div>
+            <div class="avatar" aria-hidden="true">AD</div>
+          </div>
         </div>
       </header>
 
-      <main class="app__main">
-        <section class="overview" aria-label="VISÃO GERAL">
-          <div class="overview__card">
-            <h2 class="overview__label">VISÃO GERAL</h2>
-            <p class="overview__date" id="current-date">--</p>
-          </div>
+      <main class="app-main">
+        <section class="overview-grid" aria-label="Visão geral">
+          <article class="surface-card overview-card overview-card--wide">
+            <p class="overview-card__label">Visão geral</p>
+            <h2 id="current-date" class="overview-card__value">--</h2>
+            <p class="overview-card__meta">Plantão noturno ativo</p>
+          </article>
 
-          <div class="overview__card">
-            <h2 class="overview__label">Em triagem</h2>
-            <p class="overview__stat" id="stat-open">00</p>
-          </div>
+          <article class="surface-card overview-card">
+            <p class="overview-card__label">Em triagem</p>
+            <p id="stat-open" class="overview-card__value overview-card__value--stat">00</p>
+            <div class="progress-line" aria-hidden="true">
+              <span id="stat-open-progress"></span>
+            </div>
+          </article>
 
-          <div class="overview__card">
-            <h2 class="overview__label">Arquivados</h2>
-            <p class="overview__stat" id="stat-closed">00</p>
-          </div>
+          <article class="surface-card overview-card">
+            <p class="overview-card__label">Resolvidos</p>
+            <p id="stat-closed" class="overview-card__value overview-card__value--stat">00</p>
+            <div class="progress-line" aria-hidden="true">
+              <span id="stat-closed-progress"></span>
+            </div>
+          </article>
         </section>
 
         <section class="controls" aria-label="Controles">
-          <label class="controls__search">
-            <span class="sr-only">Buscar</span>
-            <input
-              id="search-input"
-              name="search"
-              type="search"
-              placeholder="Buscar"
-              autocomplete="off"
-            />
-          </label>
+          <div class="controls__left">
+            <label class="search-field" for="search-input">
+              <span class="sr-only">Buscar tickets</span>
+              <span class="search-field__icon" aria-hidden="true">⌕</span>
+              <input
+                id="search-input"
+                name="search"
+                type="search"
+                placeholder="Buscar por equipamento, descrição ou solicitante"
+                autocomplete="off"
+              />
+            </label>
 
-          <div class="tabs" role="tablist" aria-label="filtro de status">
-            <button
-              id="tab-open"
-              type="button"
-              class="tabs__tab"
-              role="tab"
-              aria-selected="true"
-              data-action="set-filter"
-              data-filter="open"
-            >
-              Abertos
+            <div class="tabs tabs--desktop" role="tablist" aria-label="Filtro desktop">
+              <button
+                id="tab-open"
+                type="button"
+                role="tab"
+                class="tab"
+                aria-selected="true"
+                data-action="set-filter"
+                data-filter="open"
+              >
+                Abertos
+              </button>
+              <button
+                id="tab-closed"
+                type="button"
+                role="tab"
+                class="tab"
+                aria-selected="false"
+                data-action="set-filter"
+                data-filter="closed"
+              >
+                Arquivados
+              </button>
+            </div>
+          </div>
+
+          <div class="controls__right">
+            <button type="button" class="btn btn--ghost" data-action="reset-seed">
+              Resetar dados demo
             </button>
-
-            <button
-              id="tab-closed"
-              type="button"
-              class="tabs__tab"
-              role="tab"
-              aria-selected="false"
-              data-action="set-filter"
-              data-filter="closed"
-            >
-              Arquivados
+            <button type="button" class="btn btn--primary" data-action="open-create">
+              Novo ticket
             </button>
           </div>
-          <button
-            type="button"
-            class="btn btn--primary"
-            data-action="open-create"
-          >
-            Novo incidente
-          </button>
         </section>
 
-        <section class="tickets" aria-label="Lista de chamados">
-          <div id="empty-state" class="empty" hidden>
-            <p>Nenhum chamado encontrado.</p>
-          </div>
+        <div class="tabs tabs--mobile" role="tablist" aria-label="Filtro mobile">
+          <button
+            id="tab-open-mobile"
+            type="button"
+            role="tab"
+            class="tab"
+            aria-selected="true"
+            data-action="set-filter"
+            data-filter="open"
+          >
+            Abertos
+          </button>
+          <button
+            id="tab-closed-mobile"
+            type="button"
+            role="tab"
+            class="tab"
+            aria-selected="false"
+            data-action="set-filter"
+            data-filter="closed"
+          >
+            Arquivados
+          </button>
+        </div>
 
-          <div id="ticket-list" class="tickets__list"></div>
+        <section class="tickets" aria-label="Lista de tickets">
+          <div id="ticket-list" class="tickets__list" aria-live="polite"></div>
+
+          <div id="empty-state" class="empty-state" hidden>
+            <div class="empty-state__icon" aria-hidden="true">◌</div>
+            <h3 class="empty-state__title">Tudo limpo por aqui</h3>
+            <p class="empty-state__text">
+              Nenhum chamado encontrado para o filtro atual.
+            </p>
+          </div>
         </section>
       </main>
 
-      <section class="modal" id="modal-form" hidden aria-hidden="true">
-        <div
-          class="modal__backdrop"
-          data-action="close-modal"
-          data-modal="modal-form"
-        ></div>
-
-        <div
-          class="modal__panel"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Novo incidente"
-        >
+      <section id="modal-form" class="modal" hidden aria-hidden="true">
+        <div class="modal__backdrop" data-action="close-modal" data-modal="modal-form"></div>
+        <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modal-form-title">
           <header class="modal__header">
-            <h2 class="modal__title">Novo Incidente</h2>
+            <div>
+              <h2 id="modal-form-title" class="modal__title">Novo incidente</h2>
+              <p class="modal__subtitle">Registre os detalhes técnicos do chamado.</p>
+            </div>
             <button
               type="button"
-              class="modal__close"
+              class="icon-btn"
               data-action="close-modal"
               data-modal="modal-form"
+              aria-label="Fechar modal"
             >
-              Fechar
+              ×
             </button>
           </header>
 
@@ -133,18 +179,27 @@
             <input type="hidden" id="form-id" name="id" />
 
             <label class="form__field">
-              <span>Equipamento/Local</span>
+              <span>Equipamento / Local</span>
               <input
                 id="form-equipment"
                 name="equipment"
                 type="text"
                 required
+                minlength="3"
+                maxlength="120"
+                placeholder="Ex: Monitor Multiparamétrico - Leito 04"
               />
             </label>
 
-            <label class="form__field" id="field-user-name">
+            <label id="field-user-name" class="form__field">
               <span>Solicitante</span>
-              <input id="form-user" name="userName" type="text" />
+              <input
+                id="form-user"
+                name="userName"
+                type="text"
+                maxlength="80"
+                placeholder="Nome do profissional"
+              />
             </label>
 
             <label class="form__field">
@@ -154,13 +209,16 @@
                 name="description"
                 rows="4"
                 required
+                minlength="5"
+                maxlength="500"
+                placeholder="Descreva o problema com contexto técnico"
               ></textarea>
             </label>
 
             <div class="form__actions">
               <button
                 type="button"
-                class="btn"
+                class="btn btn--ghost"
                 data-action="close-modal"
                 data-modal="modal-form"
               >
@@ -172,28 +230,22 @@
         </div>
       </section>
 
-      <section class="modal" id="modal-close" hidden aria-hidden="true">
-        <div
-          class="modal__backdrop"
-          data-action="close-modal"
-          data-modal="modal-close"
-        ></div>
-
-        <div
-          class="modal__panel"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Encerrar chamado"
-        >
+      <section id="modal-close" class="modal" hidden aria-hidden="true">
+        <div class="modal__backdrop" data-action="close-modal" data-modal="modal-close"></div>
+        <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modal-close-title">
           <header class="modal__header">
-            <h2 class="modal__title">Encerrar Chamado</h2>
+            <div>
+              <h2 id="modal-close-title" class="modal__title">Encerrar chamado</h2>
+              <p class="modal__subtitle">Documente a solução aplicada.</p>
+            </div>
             <button
               type="button"
-              class="modal__close"
+              class="icon-btn"
               data-action="close-modal"
               data-modal="modal-close"
+              aria-label="Fechar modal"
             >
-              Fechar
+              ×
             </button>
           </header>
 
@@ -207,13 +259,16 @@
                 name="solution"
                 rows="4"
                 required
+                minlength="5"
+                maxlength="500"
+                placeholder="Ex: Reinicialização do sistema e substituição de cabo"
               ></textarea>
             </label>
 
             <div class="form__actions">
               <button
                 type="button"
-                class="btn"
+                class="btn btn--ghost"
                 data-action="close-modal"
                 data-modal="modal-close"
               >
@@ -225,12 +280,7 @@
         </div>
       </section>
 
-      <div
-        id="toast-container"
-        class="toasts"
-        aria-live="polite"
-        aria-relevant="additions"
-      ></div>
+      <div id="toast-container" class="toast-stack" aria-live="polite" aria-relevant="additions"></div>
     </div>
 
     <script type="module" src="./js/main.js"></script>
