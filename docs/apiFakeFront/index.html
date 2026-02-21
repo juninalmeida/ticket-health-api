@@ -193,11 +193,7 @@
               />
             </label>
 
-            <div
-              class="tabs tabs--desktop"
-              role="tablist"
-              aria-label="Filtro desktop"
-            >
+            <div class="tabs" role="tablist">
               <button
                 id="tab-open"
                 type="button"
@@ -241,35 +237,6 @@
             </button>
           </div>
         </section>
-
-        <div
-          class="tabs tabs--mobile"
-          role="tablist"
-          aria-label="Filtro mobile"
-        >
-          <button
-            id="tab-open-mobile"
-            type="button"
-            role="tab"
-            class="tab"
-            aria-selected="true"
-            data-action="set-filter"
-            data-filter="open"
-          >
-            Abertos
-          </button>
-          <button
-            id="tab-closed-mobile"
-            type="button"
-            role="tab"
-            class="tab"
-            aria-selected="false"
-            data-action="set-filter"
-            data-filter="closed"
-          >
-            Arquivados
-          </button>
-        </div>
 
         <section class="tickets" aria-label="Lista de tickets">
           <div id="ticket-list" class="tickets__list" aria-live="polite"></div>

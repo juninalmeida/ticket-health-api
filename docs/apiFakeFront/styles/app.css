@@ -33,7 +33,11 @@
 
 .bg-vignette {
   z-index: 0;
-  background: radial-gradient(circle at center, transparent 28%, rgb(var(--bg-rgb) / 0.86) 100%);
+  background: radial-gradient(
+    circle at center,
+    transparent 28%,
+    rgb(var(--bg-rgb) / 0.86) 100%
+  );
 }
 
 .bg-orb {
@@ -181,14 +185,6 @@
   gap: var(--space-3);
 }
 
-.tabs--desktop {
-  display: none;
-}
-
-.tabs--mobile {
-  display: flex;
-}
-
 .tickets {
   display: grid;
   gap: var(--space-4);
@@ -320,6 +316,11 @@
   pointer-events: none;
 }
 
+.tabs {
+  display: flex;
+  width: 100%;
+}
+
 @media (min-width: 40rem) {
   .avatar {
     width: 2rem;
@@ -344,12 +345,9 @@
     justify-content: end;
   }
 
-  .tabs--desktop {
+  .tabs {
+    width: auto;
     display: inline-flex;
-  }
-
-  .tabs--mobile {
-    display: none;
   }
 
   .form__actions {

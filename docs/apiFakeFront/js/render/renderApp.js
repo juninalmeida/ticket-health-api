@@ -3,8 +3,6 @@ import { ticketCardNode } from "./templates.js";
 const FILTER_TAB_IDS = [
   { id: "tab-open", filter: "open" },
   { id: "tab-closed", filter: "closed" },
-  { id: "tab-open-mobile", filter: "open" },
-  { id: "tab-closed-mobile", filter: "closed" },
 ];
 
 function getVisibleTickets(state) {
@@ -19,7 +17,8 @@ function getVisibleTickets(state) {
       return true;
     }
 
-    const haystack = `${ticket.equipment} ${ticket.description} ${ticket.userName}`.toLowerCase();
+    const haystack =
+      `${ticket.equipment} ${ticket.description} ${ticket.userName}`.toLowerCase();
     return haystack.includes(term);
   });
 }
@@ -46,8 +45,12 @@ export function renderApp(state) {
   const listEl = document.getElementById("ticket-list");
   const emptyEl = document.getElementById("empty-state");
 
-  const openCount = state.tickets.filter((ticket) => ticket.status === "open").length;
-  const closedCount = state.tickets.filter((ticket) => ticket.status === "closed").length;
+  const openCount = state.tickets.filter(
+    (ticket) => ticket.status === "open",
+  ).length;
+  const closedCount = state.tickets.filter(
+    (ticket) => ticket.status === "closed",
+  ).length;
   const total = state.tickets.length || 1;
 
   openEl.textContent = String(openCount).padStart(2, "0");
