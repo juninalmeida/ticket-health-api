@@ -1,411 +1,264 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="dark" />
 
-    <title>HelpDesk Assistencial</title>
-    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+  <title>HelpDesk Assistencial</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
 
-    <link rel="stylesheet" href="./styles/index.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap"
+    rel="stylesheet" />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  </head>
-  <body class="is-loading">
-    <section
-      id="startup-loader"
-      class="startup-loader"
-      aria-live="polite"
-      aria-label="Carregando aplicação"
-    >
-      <div class="startup-loader__grid" aria-hidden="true"></div>
-      <div class="startup-loader__glow" aria-hidden="true"></div>
+  <link rel="stylesheet" href="./styles/index.css" />
 
-      <div class="startup-loader__content">
-        <div class="startup-loader__logo" aria-hidden="true">
-          <span class="startup-loader__logo-glow"></span>
-          <span class="startup-loader__logo-frame"></span>
-          <span class="startup-loader__logo-frame-alt"></span>
-          <span class="startup-loader__activity">
-            <svg viewBox="0 0 24 24" focusable="false">
-              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-            </svg>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body class="is-loading">
+  <section id="startup-loader" class="startup-loader" aria-live="polite" aria-label="Carregando aplicação">
+    <div class="startup-loader__grid" aria-hidden="true"></div>
+    <div class="startup-loader__glow" aria-hidden="true"></div>
+
+    <div class="startup-loader__content">
+      <div class="startup-loader__logo" aria-hidden="true">
+        <span class="startup-loader__logo-glow"></span>
+        <span class="startup-loader__logo-frame"></span>
+        <span class="startup-loader__logo-frame-alt"></span>
+        <span class="startup-loader__activity">
+          <img src="./assets/loader-activity.svg" alt="" aria-hidden="true" />
+        </span>
+      </div>
+
+      <h2 class="startup-loader__title">
+        Saúde Ta <span class="startup-loader__title-badge">ON</span>
+      </h2>
+      <p class="startup-loader__subtitle">Suporte Tecnológico</p>
+
+      <div class="startup-loader__progress">
+        <div class="startup-loader__head">
+          <span id="loader-status" class="startup-loader__status">
+            Inicializando protocolos...
+          </span>
+          <span id="loader-percent" class="startup-loader__percent">0%</span>
+        </div>
+
+        <div class="startup-loader__track" aria-hidden="true">
+          <div id="loader-fill" class="startup-loader__fill">
+            <span class="startup-loader__dot"></span>
+          </div>
+        </div>
+
+        <div class="startup-loader__tech" aria-hidden="true">
+          <span class="startup-loader__binary">0110101011</span>
+          <span class="startup-loader__cpu">
+            <img src="./assets/loader-cpu.svg" alt="" aria-hidden="true" />
           </span>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <h2 class="startup-loader__title">
-          Saúde Ta <span class="startup-loader__title-badge">ON</span>
-        </h2>
-        <p class="startup-loader__subtitle">Suporte Tecnológico</p>
+  <div class="bg-layer" aria-hidden="true"></div>
+  <canvas id="bg-geometry" class="bg-geometry" aria-hidden="true"></canvas>
+  <div class="bg-vignette" aria-hidden="true"></div>
+  <div class="bg-orb bg-orb--one" aria-hidden="true"></div>
+  <div class="bg-orb bg-orb--two" aria-hidden="true"></div>
 
-        <div class="startup-loader__progress">
-          <div class="startup-loader__head">
-            <span id="loader-status" class="startup-loader__status">
-              Inicializando protocolos...
-            </span>
-            <span id="loader-percent" class="startup-loader__percent">0%</span>
-          </div>
-
-          <div class="startup-loader__track" aria-hidden="true">
-            <div id="loader-fill" class="startup-loader__fill">
-              <span class="startup-loader__dot"></span>
-            </div>
-          </div>
-
-          <div class="startup-loader__tech" aria-hidden="true">
-            <span class="startup-loader__binary">0110101011</span>
-            <span class="startup-loader__cpu">
-              <svg viewBox="0 0 24 24" focusable="false">
-                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
-                <rect x="9" y="9" width="6" height="6" rx="1"></rect>
-                <path d="M9 2V4"></path>
-                <path d="M15 2V4"></path>
-                <path d="M9 20V22"></path>
-                <path d="M15 20V22"></path>
-                <path d="M2 9H4"></path>
-                <path d="M2 15H4"></path>
-                <path d="M20 9H22"></path>
-                <path d="M20 15H22"></path>
-              </svg>
-            </span>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="topbar">
+        <div class="brand" aria-label="Ticket Health">
+          <img src="./assets/logo.svg" alt="Ícone HelpDesk" class="brand__icon" aria-hidden="true" />
+          <div>
+            <h1 class="brand__title">HelpDesk Assistencial</h1>
+            <p class="brand__subtitle">Gestão de Chamados em Saúde</p>
           </div>
         </div>
+
+        <div class="topbar__meta">
+          <div id="api-status" class="api-status" data-mode="persistent" aria-live="polite">
+            <span id="api-status-dot" class="status-dot" aria-hidden="true"></span>
+            <span id="api-status-text">Inicializando...</span>
+          </div>
+          <div class="avatar" aria-hidden="true">TI</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section class="overview-grid" aria-label="Visão geral">
+        <article class="surface-card overview-card overview-card--wide">
+          <p class="overview-card__label">Visão geral</p>
+          <h2 id="current-date" class="overview-card__value">--</h2>
+          <p class="overview-card__meta">Plantão TI Demandas</p>
+        </article>
+
+        <article class="surface-card overview-card overview-card--stat">
+          <div class="overview-card__head">
+            <p class="overview-card__label">Em triagem</p>
+            <span class="overview-card__icon overview-card__icon--open" aria-hidden="true">
+              <img src="./assets/icon-open.svg" alt="" aria-hidden="true" />
+            </span>
+          </div>
+          <p id="stat-open" class="overview-card__value overview-card__value--stat">
+            00
+          </p>
+          <div class="progress-line" aria-hidden="true">
+            <span id="stat-open-progress"></span>
+          </div>
+        </article>
+
+        <article class="surface-card overview-card overview-card--stat">
+          <div class="overview-card__head">
+            <p class="overview-card__label">Resolvidos</p>
+            <span class="overview-card__icon overview-card__icon--closed" aria-hidden="true">
+              <img src="./assets/icon-closed.svg" alt="" aria-hidden="true" />
+            </span>
+          </div>
+          <p id="stat-closed" class="overview-card__value overview-card__value--stat">
+            00
+          </p>
+          <div class="progress-line" aria-hidden="true">
+            <span id="stat-closed-progress"></span>
+          </div>
+        </article>
+      </section>
+
+      <section class="controls" aria-label="Controles">
+        <div class="controls__left">
+          <label class="search-field" for="search-input">
+            <span class="sr-only">Buscar tickets</span>
+            <span class="search-field__icon" aria-hidden="true">⌕</span>
+            <input id="search-input" name="search" type="search"
+              placeholder="Buscar por equipamento, descrição ou solicitante" autocomplete="off" />
+          </label>
+
+          <div class="tabs" role="tablist">
+            <button id="tab-open" type="button" role="tab" class="tab" aria-selected="true" data-action="set-filter"
+              data-filter="open">
+              Abertos
+            </button>
+            <button id="tab-closed" type="button" role="tab" class="tab" aria-selected="false" data-action="set-filter"
+              data-filter="closed">
+              Arquivados
+            </button>
+          </div>
+        </div>
+
+        <div class="controls__right">
+          <button type="button" class="btn btn--ghost" data-action="reset-seed">
+            Resetar
+          </button>
+          <button type="button" class="btn btn--primary btn--create" data-action="open-create">
+            <span class="btn__lead-icon" aria-hidden="true">＋</span>
+            <span>Novo Ticket</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="tickets" aria-label="Lista de tickets">
+        <div id="ticket-list" class="tickets__list" aria-live="polite"></div>
+
+        <div id="empty-state" class="empty-state" hidden>
+          <div class="empty-state__icon" aria-hidden="true">◌</div>
+          <h3 class="empty-state__title">Tudo limpo por aqui</h3>
+          <p class="empty-state__text">
+            Nenhum chamado encontrado para o filtro atual.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <section id="modal-form" class="modal" hidden aria-hidden="true">
+      <div class="modal__backdrop" data-action="close-modal" data-modal="modal-form"></div>
+      <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modal-form-title">
+        <header class="modal__header">
+          <div>
+            <h2 id="modal-form-title" class="modal__title">Novo incidente</h2>
+            <p class="modal__subtitle">
+              Registre os detalhes técnicos do chamado.
+            </p>
+          </div>
+          <button type="button" class="icon-btn" data-action="close-modal" data-modal="modal-form"
+            aria-label="Fechar modal">
+            ×
+          </button>
+        </header>
+
+        <form id="ticket-form" class="form">
+          <input type="hidden" id="form-id" name="id" />
+
+          <label class="form__field">
+            <span>Equipamento / Local</span>
+            <input id="form-equipment" name="equipment" type="text" required minlength="3" maxlength="120"
+              placeholder="Ex: Monitor Triagem - Usina" />
+          </label>
+
+          <label id="field-user-name" class="form__field">
+            <span>Solicitante</span>
+            <input id="form-user" name="userName" type="text" maxlength="80" placeholder="Nome do profissional" />
+          </label>
+
+          <label class="form__field">
+            <span>Descrição</span>
+            <textarea id="form-desc" name="description" rows="4" required minlength="5" maxlength="500"
+              placeholder="Descreva o problema com contexto técnico"></textarea>
+          </label>
+
+          <div class="form__actions">
+            <button type="button" class="btn btn--ghost" data-action="close-modal" data-modal="modal-form">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn--primary">Salvar</button>
+          </div>
+        </form>
       </div>
     </section>
 
-    <div class="bg-layer" aria-hidden="true"></div>
-    <canvas id="bg-geometry" class="bg-geometry" aria-hidden="true"></canvas>
-    <div class="bg-vignette" aria-hidden="true"></div>
-    <div class="bg-orb bg-orb--one" aria-hidden="true"></div>
-    <div class="bg-orb bg-orb--two" aria-hidden="true"></div>
-
-    <div class="app-shell">
-      <header class="app-header">
-        <div class="topbar">
-          <div class="brand" aria-label="Ticket Health">
-            <img src="./assets/logo.svg" alt="Ícone HelpDesk" class="brand__icon" aria-hidden="true" />
-            <div>
-              <h1 class="brand__title">HelpDesk Assistencial</h1>
-              <p class="brand__subtitle">Gestão de Chamados em Saúde</p>
-            </div>
+    <section id="modal-close" class="modal" hidden aria-hidden="true">
+      <div class="modal__backdrop" data-action="close-modal" data-modal="modal-close"></div>
+      <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modal-close-title">
+        <header class="modal__header">
+          <div>
+            <h2 id="modal-close-title" class="modal__title">
+              Encerrar chamado
+            </h2>
+            <p class="modal__subtitle">Documente a solução aplicada.</p>
           </div>
+          <button type="button" class="icon-btn" data-action="close-modal" data-modal="modal-close"
+            aria-label="Fechar modal">
+            ×
+          </button>
+        </header>
 
-          <div class="topbar__meta">
-            <div
-              id="api-status"
-              class="api-status"
-              data-mode="persistent"
-              aria-live="polite"
-            >
-              <span
-                id="api-status-dot"
-                class="status-dot"
-                aria-hidden="true"
-              ></span>
-              <span id="api-status-text">Inicializando...</span>
-            </div>
-            <div class="avatar" aria-hidden="true">TI</div>
-          </div>
-        </div>
-      </header>
+        <form id="close-form" class="form">
+          <input type="hidden" id="close-id" name="id" />
 
-      <main class="app-main">
-        <section class="overview-grid" aria-label="Visão geral">
-          <article class="surface-card overview-card overview-card--wide">
-            <p class="overview-card__label">Visão geral</p>
-            <h2 id="current-date" class="overview-card__value">--</h2>
-            <p class="overview-card__meta">Plantão TI Demandas</p>
-          </article>
+          <label class="form__field">
+            <span>Solução</span>
+            <textarea id="close-solution" name="solution" rows="4" required minlength="5" maxlength="500"></textarea>
+          </label>
 
-          <article class="surface-card overview-card overview-card--stat">
-            <div class="overview-card__head">
-              <p class="overview-card__label">Em triagem</p>
-              <span
-                class="overview-card__icon overview-card__icon--open"
-                aria-hidden="true"
-              >
-                <svg viewBox="0 0 24 24" focusable="false">
-                  <path
-                    d="M9 4.9H15C16.2 4.9 17.2 5.9 17.2 7.1V18.1C17.2 19.3 16.2 20.3 15 20.3H9C7.8 20.3 6.8 19.3 6.8 18.1V7.1C6.8 5.9 7.8 4.9 9 4.9Z"
-                  ></path>
-                  <path
-                    d="M10 3.2H14C14.9 3.2 15.6 3.9 15.6 4.8V5.2C15.6 6.1 14.9 6.8 14 6.8H10C9.1 6.8 8.4 6.1 8.4 5.2V4.8C8.4 3.9 9.1 3.2 10 3.2Z"
-                  ></path>
-                  <path d="M9.8 10.1H14.2"></path>
-                  <path d="M9.8 13.4H14.2"></path>
-                  <path d="M9.8 16.7H14.2"></path>
-                </svg>
-              </span>
-            </div>
-            <p
-              id="stat-open"
-              class="overview-card__value overview-card__value--stat"
-            >
-              00
-            </p>
-            <div class="progress-line" aria-hidden="true">
-              <span id="stat-open-progress"></span>
-            </div>
-          </article>
-
-          <article class="surface-card overview-card overview-card--stat">
-            <div class="overview-card__head">
-              <p class="overview-card__label">Resolvidos</p>
-              <span
-                class="overview-card__icon overview-card__icon--closed"
-                aria-hidden="true"
-              >
-                <svg viewBox="0 0 24 24" focusable="false">
-                  <circle cx="12" cy="12" r="8"></circle>
-                  <path d="M9.35 12.1l1.95 1.95 3.45-3.45"></path>
-                </svg>
-              </span>
-            </div>
-            <p
-              id="stat-closed"
-              class="overview-card__value overview-card__value--stat"
-            >
-              00
-            </p>
-            <div class="progress-line" aria-hidden="true">
-              <span id="stat-closed-progress"></span>
-            </div>
-          </article>
-        </section>
-
-        <section class="controls" aria-label="Controles">
-          <div class="controls__left">
-            <label class="search-field" for="search-input">
-              <span class="sr-only">Buscar tickets</span>
-              <span class="search-field__icon" aria-hidden="true">⌕</span>
-              <input
-                id="search-input"
-                name="search"
-                type="search"
-                placeholder="Buscar por equipamento, descrição ou solicitante"
-                autocomplete="off"
-              />
-            </label>
-
-            <div class="tabs" role="tablist">
-              <button
-                id="tab-open"
-                type="button"
-                role="tab"
-                class="tab"
-                aria-selected="true"
-                data-action="set-filter"
-                data-filter="open"
-              >
-                Abertos
-              </button>
-              <button
-                id="tab-closed"
-                type="button"
-                role="tab"
-                class="tab"
-                aria-selected="false"
-                data-action="set-filter"
-                data-filter="closed"
-              >
-                Arquivados
-              </button>
-            </div>
-          </div>
-
-          <div class="controls__right">
-            <button
-              type="button"
-              class="btn btn--ghost"
-              data-action="reset-seed"
-            >
-              Resetar
+          <div class="form__actions">
+            <button type="button" class="btn btn--ghost" data-action="close-modal" data-modal="modal-close">
+              Voltar
             </button>
-            <button
-              type="button"
-              class="btn btn--primary btn--create"
-              data-action="open-create"
-            >
-              <span class="btn__lead-icon" aria-hidden="true">＋</span>
-              <span>Novo Ticket</span>
-            </button>
+            <button type="submit" class="btn btn--success">Concluir</button>
           </div>
-        </section>
+        </form>
+      </div>
+    </section>
 
-        <section class="tickets" aria-label="Lista de tickets">
-          <div id="ticket-list" class="tickets__list" aria-live="polite"></div>
+    <div id="toast-container" class="toast-stack" aria-live="polite" aria-relevant="additions"></div>
+  </div>
 
-          <div id="empty-state" class="empty-state" hidden>
-            <div class="empty-state__icon" aria-hidden="true">◌</div>
-            <h3 class="empty-state__title">Tudo limpo por aqui</h3>
-            <p class="empty-state__text">
-              Nenhum chamado encontrado para o filtro atual.
-            </p>
-          </div>
-        </section>
-      </main>
+  <script type="module" src="./js/main.js"></script>
+</body>
 
-      <section id="modal-form" class="modal" hidden aria-hidden="true">
-        <div
-          class="modal__backdrop"
-          data-action="close-modal"
-          data-modal="modal-form"
-        ></div>
-        <div
-          class="modal__panel"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="modal-form-title"
-        >
-          <header class="modal__header">
-            <div>
-              <h2 id="modal-form-title" class="modal__title">Novo incidente</h2>
-              <p class="modal__subtitle">
-                Registre os detalhes técnicos do chamado.
-              </p>
-            </div>
-            <button
-              type="button"
-              class="icon-btn"
-              data-action="close-modal"
-              data-modal="modal-form"
-              aria-label="Fechar modal"
-            >
-              ×
-            </button>
-          </header>
-
-          <form id="ticket-form" class="form">
-            <input type="hidden" id="form-id" name="id" />
-
-            <label class="form__field">
-              <span>Equipamento / Local</span>
-              <input
-                id="form-equipment"
-                name="equipment"
-                type="text"
-                required
-                minlength="3"
-                maxlength="120"
-                placeholder="Ex: Monitor Triagem - Usina"
-              />
-            </label>
-
-            <label id="field-user-name" class="form__field">
-              <span>Solicitante</span>
-              <input
-                id="form-user"
-                name="userName"
-                type="text"
-                maxlength="80"
-                placeholder="Nome do profissional"
-              />
-            </label>
-
-            <label class="form__field">
-              <span>Descrição</span>
-              <textarea
-                id="form-desc"
-                name="description"
-                rows="4"
-                required
-                minlength="5"
-                maxlength="500"
-                placeholder="Descreva o problema com contexto técnico"
-              ></textarea>
-            </label>
-
-            <div class="form__actions">
-              <button
-                type="button"
-                class="btn btn--ghost"
-                data-action="close-modal"
-                data-modal="modal-form"
-              >
-                Cancelar
-              </button>
-              <button type="submit" class="btn btn--primary">Salvar</button>
-            </div>
-          </form>
-        </div>
-      </section>
-
-      <section id="modal-close" class="modal" hidden aria-hidden="true">
-        <div
-          class="modal__backdrop"
-          data-action="close-modal"
-          data-modal="modal-close"
-        ></div>
-        <div
-          class="modal__panel"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="modal-close-title"
-        >
-          <header class="modal__header">
-            <div>
-              <h2 id="modal-close-title" class="modal__title">
-                Encerrar chamado
-              </h2>
-              <p class="modal__subtitle">Documente a solução aplicada.</p>
-            </div>
-            <button
-              type="button"
-              class="icon-btn"
-              data-action="close-modal"
-              data-modal="modal-close"
-              aria-label="Fechar modal"
-            >
-              ×
-            </button>
-          </header>
-
-          <form id="close-form" class="form">
-            <input type="hidden" id="close-id" name="id" />
-
-            <label class="form__field">
-              <span>Solução</span>
-              <textarea
-                id="close-solution"
-                name="solution"
-                rows="4"
-                required
-                minlength="5"
-                maxlength="500"
-              ></textarea>
-            </label>
-
-            <div class="form__actions">
-              <button
-                type="button"
-                class="btn btn--ghost"
-                data-action="close-modal"
-                data-modal="modal-close"
-              >
-                Voltar
-              </button>
-              <button type="submit" class="btn btn--success">Concluir</button>
-            </div>
-          </form>
-        </div>
-      </section>
-
-      <div
-        id="toast-container"
-        class="toast-stack"
-        aria-live="polite"
-        aria-relevant="additions"
-      ></div>
-    </div>
-
-    <script type="module" src="./js/main.js"></script>
-  </body>
 </html>
