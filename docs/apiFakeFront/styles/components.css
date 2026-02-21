@@ -4,7 +4,10 @@
   background: var(--surface);
   backdrop-filter: blur(20px);
   box-shadow: var(--shadow-md);
-  transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
 }
 
 .surface-card:hover {
@@ -130,7 +133,10 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.04);
   color: #f1f5f9;
-  transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
 }
 
 .search-field input {
@@ -172,7 +178,10 @@
   font-weight: 600;
   letter-spacing: 0.03em;
   cursor: pointer;
-  transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease;
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease;
 }
 
 .tab[aria-selected="true"] {
@@ -191,7 +200,10 @@
   letter-spacing: 0.01em;
   color: #e2e8f0;
   cursor: pointer;
-  transition: transform 140ms ease, border-color 140ms ease, background-color 140ms ease;
+  transition:
+    transform 140ms ease,
+    border-color 140ms ease,
+    background-color 140ms ease;
 }
 
 .btn:hover {
@@ -233,7 +245,11 @@
   padding-inline: 1.05rem 1.2rem;
   border-color: rgb(var(--accent-rgb) / 0.34);
   background:
-    linear-gradient(120deg, rgb(var(--accent-rgb) / 0.13), rgb(var(--primary-rgb) / 0.07)),
+    linear-gradient(
+      120deg,
+      rgb(var(--accent-rgb) / 0.13),
+      rgb(var(--primary-rgb) / 0.07)
+    ),
     rgb(var(--bg-rgb) / 0.58);
   box-shadow:
     inset 0 0 0 1px rgb(var(--accent-rgb) / 0.08),
@@ -245,7 +261,11 @@
 .btn--create:hover {
   border-color: rgb(var(--accent-rgb) / 0.48);
   background:
-    linear-gradient(120deg, rgb(var(--accent-rgb) / 0.18), rgb(var(--primary-rgb) / 0.1)),
+    linear-gradient(
+      120deg,
+      rgb(var(--accent-rgb) / 0.18),
+      rgb(var(--primary-rgb) / 0.1)
+    ),
     rgb(var(--bg-rgb) / 0.66);
   box-shadow:
     inset 0 0 0 1px rgb(var(--accent-rgb) / 0.1),
@@ -280,7 +300,10 @@
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: var(--muted);
   cursor: pointer;
-  transition: color 140ms ease, border-color 140ms ease, background-color 140ms ease;
+  transition:
+    color 140ms ease,
+    border-color 140ms ease,
+    background-color 140ms ease;
 }
 
 .icon-btn:hover {
@@ -377,7 +400,10 @@
   min-width: 2rem;
   min-height: 2rem;
   cursor: pointer;
-  transition: color 140ms ease, border-color 140ms ease, background-color 140ms ease;
+  transition:
+    color 140ms ease,
+    border-color 140ms ease,
+    background-color 140ms ease;
 }
 
 .ticket-card__delete:hover {
@@ -429,7 +455,9 @@
   font-weight: 600;
   letter-spacing: 0.02em;
   cursor: pointer;
-  transition: border-color 140ms ease, background-color 140ms ease;
+  transition:
+    border-color 140ms ease,
+    background-color 140ms ease;
 }
 
 .chip-btn:hover {
@@ -479,7 +507,9 @@
   box-shadow: var(--shadow-md);
   opacity: 0;
   transform: translate3d(0.75rem, 0, 0);
-  transition: opacity 180ms ease, transform 180ms ease;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
 }
 
 .toast.is-visible {
@@ -530,4 +560,35 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.ticket-card {
+  position: relative;
+  overflow: hidden;
+
+  --spotlight-size: 5rem;
+}
+
+.ticket-card::before {
+  content: "";
+  position: absolute;
+
+  width: var(--spotlight-size);
+  height: var(--spotlight-size);
+
+  top: var(--mouse-y, 0);
+  left: var(--mouse-x, 0);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle closest-side,
+    rgba(56, 189, 248, 0.15),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.ticket-card:hover::before {
+  opacity: 1;
 }
