@@ -51,7 +51,14 @@ export function ticketCardNode(ticket) {
 
   const meta = document.createElement("p");
   meta.className = "ticket-card__meta";
-  meta.textContent = `Criado em ${formatTicketTimestamp(ticket.createdAt)}`;
+
+  const createdDate = `Criado em ${formatTicketTimestamp(ticket.createdAt)}`;
+
+  if (ticket.status === "closed" && ticket.closedAt) {
+    meta.textContent = `${createdDate} — Resolvido em ${formatTicketTimestamp(ticket.closedAt)}`;
+  } else {
+    meta.textContent = createdDate;
+  }
 
   article.append(head, title, description, meta);
 
