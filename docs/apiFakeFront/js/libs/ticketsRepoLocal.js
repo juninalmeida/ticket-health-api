@@ -85,11 +85,12 @@ function normalizeTicket(raw) {
   const status = raw.status === "closed" ? "closed" : "open";
   const equipment = normalizeText(raw.equipment, "Equipamento não informado");
   const description = normalizeText(raw.description, "Sem descrição.");
-  const userName = normalizeText(raw.userName ?? raw.user_name);
-  const createdAt = normalizeDate(raw.createdAt ?? raw.created_at, fallbackDate);
+
+  const userName = normalizeText(raw.user_name);
+  const createdAt = normalizeDate(raw.created_at, fallbackDate);
 
   let solution = normalizeText(raw.solution);
-  let closedAt = raw.closedAt ?? raw.closed_at ?? null;
+  let closedAt = raw.updated_at ?? null;
 
   if (status === "closed") {
     solution = solution || "Solução não registrada.";
@@ -152,7 +153,8 @@ function buildSeedTickets() {
       id: makeId(),
       equipment: "Bomba de Infusão - Sala 2",
       userName: "Dr. Paulo",
-      description: "Alarme contínuo ao iniciar infusão, mesmo com linha validada.",
+      description:
+        "Alarme contínuo ao iniciar infusão, mesmo com linha validada.",
       status: "closed",
       solution: "Recalibração e atualização de firmware concluídas.",
       createdAt: new Date(now.getTime() - 1000 * 60 * 120).toISOString(),
@@ -326,12 +328,12 @@ export const ticketsRepoLocal = {
     const nextTicket = normalizeTicket({
       id: makeId(),
       equipment: draft.equipment,
-      userName: draft.userName,
+      user_name: draft.userName,
       description: draft.description,
       status: "open",
       solution: null,
-      createdAt: now,
-      closedAt: null,
+      created_at: now,
+      updated_at: now,
     });
 
     const nextTickets = [nextTicket, ...tickets];
@@ -342,30 +344,28 @@ export const ticketsRepoLocal = {
 
   async update(id, payload) {
     const ticketId = normalizeText(id);
-
-    if (!ticketId) {
-      return null;
-    }
+    if (!ticketId) return null;
 
     const tickets = getWorkingTickets();
     let updatedTicket = null;
 
     const nextTickets = tickets.map((ticket) => {
-      if (ticket.id !== ticketId) {
-        return ticket;
-      }
+      if (ticket.id !== ticketId) return ticket;
 
       updatedTicket = normalizeTicket({
         ...ticket,
-        ...payload,
+        equipment: payload.equipment || ticket.equipment,
+        description: payload.description || ticket.description,
+        user_name: payload.userName || ticket.userName,
+        status: payload.status || ticket.status,
+        solution: payload.solution || ticket.solution,
+        updated_at: nowISO(),
       });
 
       return updatedTicket;
     });
 
-    if (!updatedTicket) {
-      return null;
-    }
+    if (!updatedTicket) return null;
 
     persist(nextTickets);
     return clone(updatedTicket);
@@ -373,21 +373,13 @@ export const ticketsRepoLocal = {
 
   async close(id, solution) {
     const ticketId = normalizeText(id);
-
-    if (!ticketId) {
-      return null;
-    }
-
     const nextSolution = normalizeText(solution);
 
-    if (!nextSolution) {
-      return null;
-    }
+    if (!ticketId || !nextSolution) return null;
 
     return this.update(ticketId, {
       status: "closed",
       solution: nextSolution,
-      closedAt: nowISO(),
     });
   },
 
