@@ -1,4 +1,4 @@
-# Ticket Health API + Fake Front (Portfolio)
+# Ticket Health API + Fake Front
 
 Uma aplicação full-stack composta por uma API de chamados desenvolvida em aula, integrada a um frontend autoral com simulador de API persistente para demonstração prática e interativa.
 
